@@ -448,7 +448,7 @@ int judge()
 	int i_min2 = 0, i_max2 = 56, j_min2 = 0, j_max2 = 26;
 	snake* q;
 	q = head->next;
-	while (q != NULL)
+	while (q->next != NULL)
 	{
 		if (head->x == q->x && head->y == q->y)
 		{
@@ -459,7 +459,7 @@ int judge()
 	}
 	if (head->x == i_min2 || head->x == i_max2 || head->y == j_min2 || head->y == j_max2)
 	{
-		game_over(0);                                                           //2代表撞到墙了
+		game_over(0);                                                           //0代表撞到墙了
 		return 1;
 	}
 	else
