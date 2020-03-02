@@ -229,7 +229,7 @@ void text()
 	gotoxy(76, 14);
 	color(9);
 	printf("\t   小提示");                                            //打印一些提示
-	square(65, 110, 15, 28);
+	square(65, 115, 15, 28);
 	gotoxy(66, 17);
 	printf("tip1: 不能撞墙，不能咬到自己");
 	gotoxy(66, 19);
@@ -363,7 +363,7 @@ void MovingBody()
 {
 	int a = head->x, b = head->y;
 	snake* p = head;
-	while (p != NULL)                                                   //通过先清空后打印实现动画效果
+	while (p-> != NULL)                                                   //通过先清空后打印实现动画效果
 	{
 		gotodelete(p->x, p->y);
 		p = p->next;
