@@ -12,45 +12,45 @@
 #define add_speed 'j'
 #define down_speed 'l'
 
-constexpr auto i_min = 35;                                     //ÓÃÓÚÓÎÏ·¿ªÊ¼±ß¿òµÄÈ·¶¨ 
+constexpr auto i_min = 35;                                     //ç”¨äºæ¸¸æˆå¼€å§‹è¾¹æ¡†çš„ç¡®å®š 
 constexpr auto i_max = 85;
 constexpr auto j_min = 17;
 constexpr auto j_max = 23;
 
-const HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);         //±ê×¼Êä³öµÄ¾ä±ú
+const HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);         //æ ‡å‡†è¾“å‡ºçš„å¥æŸ„
 struct snake* tail, * head, * food_1;
-int i = 0;                                                     //ÓÃÀ´±£´æ³É¼¨
-int max;                                                       //³É¼¨µÄ×î´óÖµ
-int sleeptime = 200;                                           //Í¨¹ısleeptimeÀ´¿ØÖÆËÙ¶È
-char click = 1;                                                //±£´æ¼üÅÌµÄÊäÈë
-int rand_color = 3;                                            //±£´æ²úÉúµÄËæ»úÊı£¬½«Ê³ÎïµÄÑÕÉ«±ä³ÉËæ»úµÄ
-int last_color = 3;                                            //±£´æÉÏÒ»´Î²úÉúËæ»úÊı
+int i = 0;                                                     //ç”¨æ¥ä¿å­˜æˆç»©
+int max;                                                       //æˆç»©çš„æœ€å¤§å€¼
+int sleeptime = 200;                                           //é€šè¿‡sleeptimeæ¥æ§åˆ¶é€Ÿåº¦
+char click = 1;                                                //ä¿å­˜é”®ç›˜çš„è¾“å…¥
+int rand_color = 3;                                            //ä¿å­˜äº§ç”Ÿçš„éšæœºæ•°ï¼Œå°†é£Ÿç‰©çš„é¢œè‰²å˜æˆéšæœºçš„
+int last_color = 3;                                            //ä¿å­˜ä¸Šä¸€æ¬¡äº§ç”Ÿéšæœºæ•°
 
 struct snake {
 	int x;
 	int y;
-	struct snake* next;                                         //ÎªÊ¹ÓÃÁ´±í×ö×¼±¸
-};   //ÉßµÄ½á¹¹Ìå
+	struct snake* next;                                         //ä¸ºä½¿ç”¨é“¾è¡¨åšå‡†å¤‡
+};   //è›‡çš„ç»“æ„ä½“
 
-void color(int i);                                              //Í¨¹ıÕâ¸öº¯ÊıÀ´¸Ä±ä×ÖÌåµÄÑÕÉ«
-void gotoxy(int x, int y);                                      //½«¹â±êÒÆµ½(x,y)´¦
-void start_play();                                              //¿ªÊ¼ÓÎÏ·
-void square(int i_min1, int i_max1, int j_min1, int j_max1);    //²úÉúÒ»¸ö¾ØĞÎ¿ò
-void game_over(int k);                                          //ÓÎÏ·½áÊø
-void make_map();                                                //¼ÓÔØµØÍ¼
-void text();                                                    //¼ÓÔØÎÄ±¾
-void init_snake();                                              //³õÊ¼»¯ÉßµÄÉíÌå
-void food();                                                    //³õÊ¼»¯Ê³Îï
-void file_scanf();                                              //¶ÁÈësave.txt±£´æ³É¼¨µÄ×î´óÖµ
-void file_printf();                                             //½«×î´óÖµĞ´Èësave.txt
-void gotodelete(int i, int y);                                  //Çå¿Õ´ò³öÀ´µÄÉßÉíÌå
-void change_body(int a, int b);                                 //¸Ä±äÉßÉíÌåÎ»ÖÃ
-void gotoprint(int x, int y);                                   //´òÓ¡Éß
-void MovingBody();                                              //ÒÆ¶¯Éß
-void ClickControl();                                            //µÃµ½¼üÅÌµÄÊäÈë
-void eating();                                                  //µ±Éß³Ôµ½¶«Î÷Ê±
-int judge();                                                    //ÅĞ¶ÏÉßÊÇ·ñ×²µ½¶«Î÷
-void refresh();                                                 //Ë¢ĞÂ³É¼¨ºÍËÙ¶È
+void color(int i);                                              //é€šè¿‡è¿™ä¸ªå‡½æ•°æ¥æ”¹å˜å­—ä½“çš„é¢œè‰²
+void gotoxy(int x, int y);                                      //å°†å…‰æ ‡ç§»åˆ°(x,y)å¤„
+void start_play();                                              //å¼€å§‹æ¸¸æˆ
+void square(int i_min1, int i_max1, int j_min1, int j_max1);    //äº§ç”Ÿä¸€ä¸ªçŸ©å½¢æ¡†
+void game_over(int k);                                          //æ¸¸æˆç»“æŸ
+void make_map();                                                //åŠ è½½åœ°å›¾
+void text();                                                    //åŠ è½½æ–‡æœ¬
+void init_snake();                                              //åˆå§‹åŒ–è›‡çš„èº«ä½“
+void food();                                                    //åˆå§‹åŒ–é£Ÿç‰©
+void file_scanf();                                              //è¯»å…¥save.txtä¿å­˜æˆç»©çš„æœ€å¤§å€¼
+void file_printf();                                             //å°†æœ€å¤§å€¼å†™å…¥save.txt
+void gotodelete(int i, int y);                                  //æ¸…ç©ºæ‰“å‡ºæ¥çš„è›‡èº«ä½“
+void change_body(int a, int b);                                 //æ”¹å˜è›‡èº«ä½“ä½ç½®
+void gotoprint(int x, int y);                                   //æ‰“å°è›‡
+void MovingBody();                                              //ç§»åŠ¨è›‡
+void ClickControl();                                            //å¾—åˆ°é”®ç›˜çš„è¾“å…¥
+void eating();                                                  //å½“è›‡åƒåˆ°ä¸œè¥¿æ—¶
+int judge();                                                    //åˆ¤æ–­è›‡æ˜¯å¦æ’åˆ°ä¸œè¥¿
+void refresh();                                                 //åˆ·æ–°æˆç»©å’Œé€Ÿåº¦
 
 int main(void)
 {
@@ -60,37 +60,37 @@ int main(void)
 
 void gotoxy(int x, int y)
 {
-	COORD c;                                                     //COORDÊÇÒ»¸ö½á¹¹Ìå
+	COORD c;                                                     //COORDæ˜¯ä¸€ä¸ªç»“æ„ä½“
 	c.X = x;
 	c.Y = y;
-	SetConsoleCursorPosition(handle, c);                         //ÉèÖÃ¹â±êµÄÎ»ÖÃ
+	SetConsoleCursorPosition(handle, c);                         //è®¾ç½®å…‰æ ‡çš„ä½ç½®
 }
 
 void color(int i)
 {
-	SetConsoleTextAttribute(handle, i);                           //¸Ä±ä×ÖÌåµÄÑÕÉ«
+	SetConsoleTextAttribute(handle, i);                           //æ”¹å˜å­—ä½“çš„é¢œè‰²
 }
 
 void start_play()
 {
 	int i, j;
-	gotoxy(i_min + 20, j_min - 2);                                //¼ÓÔØÓÎÏ·¿ªÊ¼µÄ½çÃæ
+	gotoxy(i_min + 20, j_min - 2);                                //åŠ è½½æ¸¸æˆå¼€å§‹çš„ç•Œé¢
 	color(4);
-	printf("Ì° ³Ô Éß ÓÎ Ï·");
+	printf("è´ª åƒ è›‡ æ¸¸ æˆ");
 	gotoxy(i_min + 5, j_min + 2);
-	printf("[1]¿ªÊ¼ÓÎÏ·\t\t  [2]ÓÎÏ·ËµÃ÷");
+	printf("[1]å¼€å§‹æ¸¸æˆ\t\t  [2]æ¸¸æˆè¯´æ˜");
 	gotoxy(i_min + 5, j_min + 4);
-	printf("[3]ÍË³öÓÎÏ·");
+	printf("[3]é€€å‡ºæ¸¸æˆ");
 	color(3);
-	square(i_min, i_max, j_min, j_max);                           //´ò³ö¾ØĞÎ¿ò
+	square(i_min, i_max, j_min, j_max);                           //æ‰“å‡ºçŸ©å½¢æ¡†
 	gotoxy(i_min, j_max + 1);
-	printf("ÇëÑ¡Ôñ[1 2 3]:[ ]");
+	printf("è¯·é€‰æ‹©[1 2 3]:[ ]");
 	gotoxy(i_min + 15, j_max + 1);
 	scanf_s("%d", &i);
-	switch(i)                                                     //¶ÔÑ¡Ôñ½øĞĞÅĞ¶Ï
+	switch(i)                                                     //å¯¹é€‰æ‹©è¿›è¡Œåˆ¤æ–­
 	{ 
 		case 1:                                                  
-			system("cls");                                        //ÇåÆÁ
+			system("cls");                                        //æ¸…å±
 			make_map();
 			ClickControl();
 			break;
@@ -98,9 +98,9 @@ void start_play()
 			system("cls");
 			text();
 			gotoxy(20,12);
-			printf("[1]·µ»ØÓÎÏ·   [2]ÍË³öÓÎÏ·");
+			printf("[1]è¿”å›æ¸¸æˆ   [2]é€€å‡ºæ¸¸æˆ");
 			gotoxy(20, 14);
-			printf("ÇëÑ¡Ôñ[1 2]:[ ]");
+			printf("è¯·é€‰æ‹©[1 2]:[ ]");
 			gotoxy(33, 14);
 			scanf_s("%d",&i);
 			if(i==1)
@@ -109,17 +109,17 @@ void start_play()
 				make_map();
 				ClickControl();
 				break;
-			}                                                      //Èç¹ûiÎª2£¬Ôò½øÈëcase3ÖĞ
+			}                                                      //å¦‚æœiä¸º2ï¼Œåˆ™è¿›å…¥case3ä¸­
 		case 3:
-			printf("ÕıÔÚÍË³öÓÎÏ·...");
-			Sleep(500);                                            //²úÉúÑÓ³ÙĞ§¹û£¬Ê¹Íæ¼Ò¿´Çå³ş´òÓ¡µÄÄÚÈİ
+			printf("æ­£åœ¨é€€å‡ºæ¸¸æˆ...");
+			Sleep(500);                                            //äº§ç”Ÿå»¶è¿Ÿæ•ˆæœï¼Œä½¿ç©å®¶çœ‹æ¸…æ¥šæ‰“å°çš„å†…å®¹
 			system("cls");
 			exit(0);
 		default:
 			gotoxy(i_min + 15, j_max + 2);
-			printf("ÇëÊäÈë1~3Ö®¼äµÄÊı£¡£¡£¡");
+			printf("è¯·è¾“å…¥1~3ä¹‹é—´çš„æ•°ï¼ï¼ï¼");
 			Sleep(300);
-			getchar();                                             //ÎüÊÕ°´ÏÂµÄ»Ø³µ
+			getchar();                                             //å¸æ”¶æŒ‰ä¸‹çš„å›è½¦
 			system("cls");
 			start_play();
 	}
@@ -146,47 +146,47 @@ void square(int i_min1, int i_max1, int j_min1, int j_max1)
 void game_over(int k)
 {
 	int j;
-	file_scanf();                                                    //¶ÁÈësave.txt±£´æ³É¼¨µÄ×î´óÖµ
+	file_scanf();                                                    //è¯»å…¥save.txtä¿å­˜æˆç»©çš„æœ€å¤§å€¼
 	system("cls");
 	square(20, 100, 5, 20);
 	gotoxy(55, 8);
 	color(7);
-	printf("(£¾©n£¼)\n");
+	printf("(ï¼ï¹ï¼œ)\n");
 	color(6);
 	gotoxy(44, 11);
-	if(k==0)                                                         //ÅĞ¶ÏÓÎÏ·½áÊøµÄÔ­Òò
-		printf("ºÃ¿ÉÏ§Ñ½£¬Äã×²Ç½ÁË£¬ÓÎÏ·½áÊø\n");
+	if(k==0)                                                         //åˆ¤æ–­æ¸¸æˆç»“æŸçš„åŸå› 
+		printf("å¥½å¯æƒœå‘€ï¼Œä½ æ’å¢™äº†ï¼Œæ¸¸æˆç»“æŸ\n");
 	else
-		printf("ºÃ¿ÉÏ§Ñ½£¬Äã×²µ½×Ô¼ºÁË£¬ÓÎÏ·½áÊø\n");
+		printf("å¥½å¯æƒœå‘€ï¼Œä½ æ’åˆ°è‡ªå·±äº†ï¼Œæ¸¸æˆç»“æŸ\n");
 	gotoxy(54, 14);
 	color(10);
-	printf("ÄãµÄµÃ·ÖÊÇ%d", i);
+	printf("ä½ çš„å¾—åˆ†æ˜¯%d", i);
 	gotoxy(38, 17);
-	if (i < max)                                                      //ÅĞ¶Ï³É¼¨ÊÇ·ñ´óÓÚ×î´óÖµ
-		printf("£¨^_^£©¼ÌĞøÅ¬Á¦°É£¬ÄãÀë×î¸ß·Ö»¹²î%d", max - i);
+	if (i < max)                                                      //åˆ¤æ–­æˆç»©æ˜¯å¦å¤§äºæœ€å¤§å€¼
+		printf("ï¼ˆ^_^ï¼‰ç»§ç»­åŠªåŠ›å§ï¼Œä½ ç¦»æœ€é«˜åˆ†è¿˜å·®%d", max - i);
 	else
 	{
-		printf("£¨^_^£©Ì«À÷º¦ÁË°É£¬ÄãË¢ĞÂÁË¼ÇÂ¼,ÏÖÔÚ×î¸ß·ÖÊÇ%d", i);
-		file_printf();                                                 //³É¼¨´óÓÚ×î´óÖµ£¬½«³É¼¨Ğ´ÈëÎÄ¼ş
+		printf("ï¼ˆ^_^ï¼‰å¤ªå‰å®³äº†å§ï¼Œä½ åˆ·æ–°äº†è®°å½•,ç°åœ¨æœ€é«˜åˆ†æ˜¯%d", i);
+		file_printf();                                               //æˆç»©å¤§äºæœ€å¤§å€¼ï¼Œå°†æˆç»©å†™å…¥æ–‡ä»¶
 	}
 	gotoxy(40, 22);
-	printf("[1]ÔÚÀ´Ò»¾Ö\t\t\t[2]ÅÜÂ·ÁË");
+	printf("[1]åœ¨æ¥ä¸€å±€\t\t\t[2]è·‘è·¯äº†");
 	gotoxy(52, 24);
-	printf("ÇëÑ¡Ôñ[1 2]:[ ]");
+	printf("è¯·é€‰æ‹©[1 2]:[ ]");
 	gotoxy(65, 24);
 	scanf_s("%d",&j);
-	switch (j)                                                         //¶ÔÑ¡Ôñ½øĞĞÅĞ¶Ï
+	switch (j)                                                         //å¯¹é€‰æ‹©è¿›è¡Œåˆ¤æ–­
 	{
 	case 1:
 		system("cls");
-		i = 0;                                                         //ÎªÖØÍæ×ö×¼±¸£¬½«³É¼¨ºÍËÙ¶È±ä³É³õÊ¼Öµ
+		i = 0;                                                      //ä¸ºé‡ç©åšå‡†å¤‡ï¼Œå°†æˆç»©å’Œé€Ÿåº¦å˜æˆåˆå§‹å€¼
 		sleeptime = 200;                                               
 		make_map();
 		ClickControl();
 		break;
 	case 2:
 		gotoxy(65, 25);
-		printf("ÕıÔÚÍË³öÓÎÏ·...");
+		printf("æ­£åœ¨é€€å‡ºæ¸¸æˆ...");
 		Sleep(500);
 		system("cls");
 		exit(0);
@@ -197,23 +197,23 @@ void make_map()
 {
 	color(3);
 	int i, j, i_min2 = 0, i_max2 = 56, j_min2 = 0, j_max2 = 26;
-	for (j = j_min2; j <= j_max2; j++)                                 //¼ÓÔØµØÍ¼
+	for (j = j_min2; j <= j_max2; j++)                                 //åŠ è½½åœ°å›¾
 	{
 		for (i = i_min2; i <= i_max2; i+=2)
 		{
 			gotoxy(i, j);
 			if (j == j_min2 || j == j_max2)
-				printf("¡ö");
+				printf("â– ");
 			else
 			{
 				if (i == i_min2 || i == i_max2)
-					printf("¡ö");
+					printf("â– ");
 			}
 		}
 		printf("\n");
 	}
-	text();                                                          //¼ÓÔØÎÄ×Ö
-	init_snake();                                                    //³õÊ¼»¯ÉßÉí
+	text();                                                          //åŠ è½½æ–‡å­—
+	init_snake();                                                    //åˆå§‹åŒ–è›‡èº«
 }
 
 void text()
@@ -221,44 +221,44 @@ void text()
 	file_scanf();                                                    
 	color(3);
 	gotoxy(60, 4);
-	printf("\t\t\t\t( ^¦Ø^)");
+	printf("\t\t\t\t( ^Ï‰^)");
 	gotoxy(76, 7);
-	printf("   ¡î×î¸ß·Ö¼ÍÂ¼:%d¡î", max);                              //´òÓ¡×î¸ß·Ö
+	printf("   â˜†æœ€é«˜åˆ†çºªå½•:%dâ˜†", max);                              //æ‰“å°æœ€é«˜åˆ†
 	color(6);
-	refresh();                                                        //ÒòÎª³É¼¨ºÍËÙ¶È»á±ä»¯ËùÒÔÒªÔÚÆä¸Ä±äÊ±Ë¢ĞÂ
+	refresh();                                                        //å› ä¸ºæˆç»©å’Œé€Ÿåº¦ä¼šå˜åŒ–æ‰€ä»¥è¦åœ¨å…¶æ”¹å˜æ—¶åˆ·æ–°
 	gotoxy(76, 14);
 	color(9);
-	printf("\t   Ğ¡ÌáÊ¾");                                            //´òÓ¡Ò»Ğ©ÌáÊ¾
+	printf("\t   å°æç¤º");                                            //æ‰“å°ä¸€äº›æç¤º
 	square(65, 110, 15, 28);
 	gotoxy(66, 17);
-	printf("tip1: ²»ÄÜ×²Ç½£¬²»ÄÜÒ§µ½×Ô¼º");
+	printf("tip1: ä¸èƒ½æ’å¢™ï¼Œä¸èƒ½å’¬åˆ°è‡ªå·±");
 	gotoxy(66, 19);
-	printf("tip2: ÓÃÓ¢ÎÄµÄw.s.a.d·Ö±ğ¿ØÖÆÉßµÄÒÆ¶¯");
+	printf("tip2: ç”¨è‹±æ–‡çš„w.s.a.dåˆ†åˆ«æ§åˆ¶è›‡çš„ç§»åŠ¨");
 	gotoxy(66, 21);
-	printf("tip3: °´¿Õ¸ñ¼üÔİÍ£ÓÎÏ·,ĞèÒªÔÙ´Î°´w.s.a.d²Å¿ÉÒÔ¶¯");
+	printf("tip3: æŒ‰ç©ºæ ¼é”®æš‚åœæ¸¸æˆ,éœ€è¦å†æ¬¡æŒ‰w.s.a.dæ‰å¯ä»¥åŠ¨");
 	gotoxy(66, 23);
-	printf("top4: °´j¼ÓËÙl½µËÙ,ĞèÒªÔÙ´Î°´w.s.a.d²Å¿ÉÒÔ¶¯");
+	printf("top4: æŒ‰jåŠ é€Ÿlé™é€Ÿ,éœ€è¦å†æ¬¡æŒ‰w.s.a.dæ‰å¯ä»¥åŠ¨");
 	gotoxy(66, 25);
-	printf("top5:  ¿ªÊ¼Ê±ÉßµÄÍ·ÔÚÓÒ±ß");
+	printf("top5:  å¼€å§‹æ—¶è›‡çš„å¤´åœ¨å³è¾¹");
 	gotoxy(66, 27);
-	printf("ÓÉÓÚ¼¼Êõ¼¼ÊõÔ­Òò±¾ÓÎÏ·´æÔÚ×ÅÒ»Ğ©bugÇë¼ûÁÂ");
+	printf("ç”±äºæŠ€æœ¯æŠ€æœ¯åŸå› æœ¬æ¸¸æˆå­˜åœ¨ç€ä¸€äº›bugè¯·è§è°…");
 	gotoxy(66, 29);
 }
 
 void init_snake()
 {
 	int i,k,j;
-	srand((unsigned)time(NULL));                                      //ÖØĞÂ²¥ÖÖ£¬ÓĞÀûÓÚ²úÉúËæ»úÊı
+	srand((unsigned)time(NULL));                                      //é‡æ–°æ’­ç§ï¼Œæœ‰åˆ©äºäº§ç”Ÿéšæœºæ•°
 	tail = (snake*)malloc(sizeof(snake));
 	do
 	{
 		k= rand() % 46+2;                                             
-	} while ((k % 2) != 0);											  //ÉßÍ·x×ø±êÔÚ2~47£¬ÇÒÎªÅ¼Êı
-	j= rand() % 22 + 1;                                               //ÉßÍ·y×ø±êÔÚ2~47
+	} while ((k % 2) != 0);						  //è›‡å¤´xåæ ‡åœ¨2~47ï¼Œä¸”ä¸ºå¶æ•°
+	j= rand() % 22 + 1;                                               //è›‡å¤´yåæ ‡åœ¨2~47
 	tail->x = k;
-	tail->y = j;                                                      //ÊµÏÖÌ°³ÔÉßµÄËæ»ú³öÏÖ
+	tail->y = j;                                                      //å®ç°è´ªåƒè›‡çš„éšæœºå‡ºç°
 	tail->next = NULL;
-	for (i = 1; i < 5; i++)                                           //²úÉúËÄ¸öÉßÉíÌå
+	for (i = 1; i < 5; i++)                                           //äº§ç”Ÿå››ä¸ªè›‡èº«ä½“
 	{
 		head = (snake*)malloc(sizeof(snake));
 		head->next = tail;
@@ -266,12 +266,12 @@ void init_snake()
 		head->y = j;
 		tail = head;
 	}
-	while (tail->next != NULL)                                        //´òÓ¡Éß
+	while (tail->next != NULL)                                        //æ‰“å°è›‡
 	{
 		gotoprint(tail->x, tail->y);
 		tail = tail->next;
 	}
-	food();                                                           //¼ÓÔØÊ³Îï
+	food();                                                           //åŠ è½½é£Ÿç‰©
 }
 
 void food()
@@ -282,30 +282,30 @@ void food()
 	do
 	{
 		food_1->x = rand() % 52 + 2;
-	} while ((food_1->x % 2) != 0);                                   //Ê³ÎïËæ»ú³öÏÖ£¬Ê³ÎïµÄx×ø±êÔÚ2~53£¬ÇÒÎªÅ¼Êı
+	} while ((food_1->x % 2) != 0);                                   //é£Ÿç‰©éšæœºå‡ºç°ï¼Œé£Ÿç‰©çš„xåæ ‡åœ¨2~53ï¼Œä¸”ä¸ºå¶æ•°
 	food_1->y = rand() % 24 + 1;
 	q = head;
 	while (q != NULL)
 	{
-		if (q->x == food_1->x && q->y == food_1->y)                   //ÅĞ¶ÏÊ³ÎïÊÇ²»ÊÇÔÚÉßµÄÉíÌåÉÏ
+		if (q->x == food_1->x && q->y == food_1->y)               //åˆ¤æ–­é£Ÿç‰©æ˜¯ä¸æ˜¯åœ¨è›‡çš„èº«ä½“ä¸Š
 		{
 			free(food_1);
 			food();
 		}
 		q = q->next;
 	}
-	last_color = rand_color;                                          //Í¨¹ıÕâ¸öÀ´ÊµÏÖÉß³Ô¸öÊ²Ã´ÑÕÉ«µÄÊ³Îï¾Í±äÊ²Ã´ÑÕÉ«
+	last_color = rand_color;                                          //é€šè¿‡è¿™ä¸ªæ¥å®ç°è›‡åƒä¸ªä»€ä¹ˆé¢œè‰²çš„é£Ÿç‰©å°±å˜ä»€ä¹ˆé¢œè‰²
 	srand((unsigned)time(NULL));
-	color(rand_color=rand() % 10 + 1);                                //Ëæ»ú²úÉú1~10µÄÑÕÉ«
-	gotoxy(food_1->x, food_1->y);                                     //´òÓ¡Ê³Îï
-	printf("¡ñ");
+	color(rand_color=rand() % 10 + 1);                                //éšæœºäº§ç”Ÿ1~10çš„é¢œè‰²
+	gotoxy(food_1->x, food_1->y);                                     //æ‰“å°é£Ÿç‰©
+	printf("â—");
 }
 
 void file_scanf()
 {
 	FILE* fp;
 	fopen_s(&fp, "./save.txt", "r+");
-	if (fp != NULL)                                                   //ÅĞ¶ÏÎÄ¼ş´ò¿ªÊÇ·ñ³É¹¦
+	if (fp != NULL)                                                   //åˆ¤æ–­æ–‡ä»¶æ‰“å¼€æ˜¯å¦æˆåŠŸ
 		fscanf_s(fp, "%d", &max);
 	fclose(fp);
 }
@@ -313,7 +313,7 @@ void file_scanf()
 void file_printf()
 {
 	FILE* fp;
-	fopen_s(&fp, "./save.txt", "w+");                                 //Õâ¸ö»á¸²¸ÇÖ®Ç°µÄÖµ
+	fopen_s(&fp, "./save.txt", "w+");                                 //è¿™ä¸ªä¼šè¦†ç›–ä¹‹å‰çš„å€¼
 	if (fp != NULL)													  
 		fprintf(fp, "%d", i);
 	fclose(fp);
@@ -333,7 +333,7 @@ void change_body(int a,int b)
 	x = a;
 	y = b;
 	p = p->next;
-	while (p->next != NULL)                                            //ÓÃÕâ½«headºóÃæµÄÒÆ¶¯µ½ËûÇ°Ò»¸öµÄÎ»ÖÃÉÏ
+	while (p->next != NULL)                                            //ç”¨è¿™å°†headåé¢çš„ç§»åŠ¨åˆ°ä»–å‰ä¸€ä¸ªçš„ä½ç½®ä¸Š
 	{
 		x1 = p->x;
 		y1 = p->y;
@@ -347,10 +347,10 @@ void change_body(int a,int b)
 
 void ClickControl()
 {
-	click = 'p';                                                        //ÎªÖØÍæ×ö×¼±¸
-	while (judge()==0)                                                  //ÅĞ¶ÏÊÇ·ñ×²µ½¶«Î÷
+	click = 'p';                                                        //ä¸ºé‡ç©åšå‡†å¤‡
+	while (judge()==0)                                                  //åˆ¤æ–­æ˜¯å¦æ’åˆ°ä¸œè¥¿
 	{
-		if (_kbhit())                                                   //ÅĞ¶ÏÊÇ·ñÓĞ¼üÅÌ°´ÏÂ
+		if (_kbhit())                                               //åˆ¤æ–­æ˜¯å¦æœ‰é”®ç›˜æŒ‰ä¸‹
 		{
 			click = _getch();
 		}
@@ -363,12 +363,12 @@ void MovingBody()
 {
 	int a = head->x, b = head->y;
 	snake* p = head;
-	while (p != NULL)                                                   //Í¨¹ıÏÈÇå¿Õºó´òÓ¡ÊµÏÖ¶¯»­Ğ§¹û
+	while (p != NULL)                                                   //é€šè¿‡å…ˆæ¸…ç©ºåæ‰“å°å®ç°åŠ¨ç”»æ•ˆæœ
 	{
 		gotodelete(p->x, p->y);
 		p = p->next;
 	}
-	switch (click)                                                      //¶Ô°´ÏÂµÄ¼üÅÌ½øĞĞÅĞ¶Ï
+	switch (click)                                                      //å¯¹æŒ‰ä¸‹çš„é”®ç›˜è¿›è¡Œåˆ¤æ–­
 	{
 	case up:
 		head->y -= 1;
@@ -388,7 +388,7 @@ void MovingBody()
 		break;
 	case stop:
 		break;
-	case add_speed:                                                       //Í¨¹ı¸Ä±äsleeptime£¬´ïµ½¼ÓËÙ
+	case add_speed:                                                       //é€šè¿‡æ”¹å˜sleeptimeï¼Œè¾¾åˆ°åŠ é€Ÿ
 		if(sleeptime>=50)
 		{
 			sleeptime -= 10;
@@ -406,14 +406,14 @@ void MovingBody()
 		break;
 	}
 	p = head;
-	eating();                                                              //¿´ÉßÊÇ·ñ³Ôµ½¶«Î÷
-	while (p->next != NULL)                                                //´òÓ¡Éß
+	eating();                                                              //çœ‹è›‡æ˜¯å¦åƒåˆ°ä¸œè¥¿
+	while (p->next != NULL)                                                //æ‰“å°è›‡
 	{
 		gotoprint(p->x, p->y);
 		p = p->next;
 	}
 	p = head;
-	gotoxy(0, 28);                                                         //ÈÃÊäÈëµÄ¹â±êÔÚ(0,28)´¦
+	gotoxy(0, 28);                                                         //è®©è¾“å…¥çš„å…‰æ ‡åœ¨(0,28)å¤„
 	Sleep(sleeptime);
 }
 
@@ -421,13 +421,13 @@ void gotoprint(int x, int y)
 {
 	color(last_color);
 	gotoxy(x, y);
-	printf("¡ô");
+	printf("â—†");
 }
 
 void eating()
 {
 	snake* now,*p;
-	if (food_1->x == head->x && food_1->y == head->y)                        //ÅĞ¶ÏÉßÊÇ·ñ³Ôµ½Ê³Îï
+	if (food_1->x == head->x && food_1->y == head->y)                        //åˆ¤æ–­è›‡æ˜¯å¦åƒåˆ°é£Ÿç‰©
 	{
 		food();                                                     
 		now = (snake*)malloc(sizeof(snake));
@@ -436,10 +436,10 @@ void eating()
 			p = p->next;
 		now->next = p->next;
 		p->next = now;
-		i+=10;                                                              //µ±³Ôµ½¶«Î÷Ê±£¬³É¼¨+10£¬ËÙ¶ÈÔö¼Ó
+		i+=10;                                                              //å½“åƒåˆ°ä¸œè¥¿æ—¶ï¼Œæˆç»©+10ï¼Œé€Ÿåº¦å¢åŠ 
 		if (sleeptime >= 40)                                                
 			sleeptime -= 10;
-		refresh();                                                          //¶Ô³É¼¨ºÍËÙ¶È½øĞĞË¢ĞÂ
+		refresh();                                                          //å¯¹æˆç»©å’Œé€Ÿåº¦è¿›è¡Œåˆ·æ–°
 	}
 }
 
@@ -452,14 +452,14 @@ int judge()
 	{
 		if (head->x == q->x && head->y == q->y)
 		{
-			game_over(1);                                                   //1´ú±í×²µ½×Ô¼ºÁË
+			game_over(1);                                                   //1ä»£è¡¨æ’åˆ°è‡ªå·±äº†
 			return 1;
 		}
 		q = q->next;
 	}
 	if (head->x == i_min2 || head->x == i_max2 || head->y == j_min2 || head->y == j_max2)
 	{
-		game_over(0);                                                      //2´ú±í×²µ½Ç½ÁË
+		game_over(0);                                                           //2ä»£è¡¨æ’åˆ°å¢™äº†
 		return 1;
 	}
 	else
@@ -470,7 +470,7 @@ void refresh()
 {
 	color(i / 10);
 	gotoxy(76, 10);
-	printf("   ¡îµ±Ç°µÃ·Ö:%d(^_^;)¡î", i);
+	printf("   â˜†å½“å‰å¾—åˆ†:%d(^_^;)â˜†", i);
 	gotoxy(76, 12);
-	printf("  ¡îµ±Ç°ËÙ¶È:%d(¡Ğ_¡Ğ;)¡î", (21 - sleeptime / 10));
+	printf("  â˜†å½“å‰é€Ÿåº¦:%d(âŒ’_âŒ’;)â˜†", (21 - sleeptime / 10));
 }
