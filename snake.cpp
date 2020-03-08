@@ -1,4 +1,4 @@
-#include<windows.h>
+﻿#include<windows.h>
 #include<stdio.h>
 #include<stdlib.h>
 #include<time.h>
@@ -87,41 +87,41 @@ void start_play()
 	printf("请选择[1 2 3]:[ ]");
 	gotoxy(i_min + 15, j_max + 1);
 	scanf_s("%d", &i);
-	switch(i)                                                     //对选择进行判断
-	{ 
-		case 1:                                                  
-			system("cls");                                        //清屏
+	switch (i)                                                     //对选择进行判断
+	{
+	case 1:
+		system("cls");                                        //清屏
+		make_map();
+		ClickControl();
+		break;
+	case 2:
+		system("cls");
+		text();
+		gotoxy(20, 12);
+		printf("[1]返回游戏   [2]退出游戏");
+		gotoxy(20, 14);
+		printf("请选择[1 2]:[ ]");
+		gotoxy(33, 14);
+		scanf_s("%d", &i);
+		if (i == 1)
+		{
+			system("cls");
 			make_map();
 			ClickControl();
 			break;
-		case 2:
-			system("cls");
-			text();
-			gotoxy(20,12);
-			printf("[1]返回游戏   [2]退出游戏");
-			gotoxy(20, 14);
-			printf("请选择[1 2]:[ ]");
-			gotoxy(33, 14);
-			scanf_s("%d",&i);
-			if(i==1)
-			{ 
-				system("cls");
-				make_map();
-				ClickControl();
-				break;
-			}                                                      //如果i为2，则进入case3中
-		case 3:
-			printf("正在退出游戏...");
-			Sleep(500);                                            //产生延迟效果，使玩家看清楚打印的内容
-			system("cls");
-			exit(0);
-		default:
-			gotoxy(i_min + 15, j_max + 2);
-			printf("请输入1~3之间的数！！！");
-			Sleep(300);
-			getchar();                                             //吸收按下的回车
-			system("cls");
-			start_play();
+		}                                                      //如果i为2，则进入case3中
+	case 3:
+		printf("正在退出游戏...");
+		Sleep(500);                                            //产生延迟效果，使玩家看清楚打印的内容
+		system("cls");
+		exit(0);
+	default:
+		gotoxy(i_min + 15, j_max + 2);
+		printf("请输入1~3之间的数！！！");
+		Sleep(300);
+		getchar();                                             //吸收按下的回车
+		system("cls");
+		start_play();
 	}
 }
 
@@ -154,7 +154,7 @@ void game_over(int k)
 	printf("(＞﹏＜)\n");
 	color(6);
 	gotoxy(44, 11);
-	if(k==0)                                                         //判断游戏结束的原因
+	if (k == 0)                                                         //判断游戏结束的原因
 		printf("好可惜呀，你撞墙了，游戏结束\n");
 	else
 		printf("好可惜呀，你撞到自己了，游戏结束\n");
@@ -167,20 +167,20 @@ void game_over(int k)
 	else
 	{
 		printf("（^_^）太厉害了吧，你刷新了记录,现在最高分是%d", i);
-		file_printf();                                               //成绩大于最大值，将成绩写入文件
+		file_printf();                                                 //成绩大于最大值，将成绩写入文件
 	}
 	gotoxy(40, 22);
 	printf("[1]在来一局\t\t\t[2]跑路了");
 	gotoxy(52, 24);
 	printf("请选择[1 2]:[ ]");
 	gotoxy(65, 24);
-	scanf_s("%d",&j);
+	scanf_s("%d", &j);
 	switch (j)                                                         //对选择进行判断
 	{
 	case 1:
 		system("cls");
-		i = 0;                                                      //为重玩做准备，将成绩和速度变成初始值
-		sleeptime = 200;                                               
+		i = 0;                                                         //为重玩做准备，将成绩和速度变成初始值
+		sleeptime = 200;
 		make_map();
 		ClickControl();
 		break;
@@ -199,7 +199,7 @@ void make_map()
 	int i, j, i_min2 = 0, i_max2 = 56, j_min2 = 0, j_max2 = 26;
 	for (j = j_min2; j <= j_max2; j++)                                 //加载地图
 	{
-		for (i = i_min2; i <= i_max2; i+=2)
+		for (i = i_min2; i <= i_max2; i += 2)
 		{
 			gotoxy(i, j);
 			if (j == j_min2 || j == j_max2)
@@ -218,7 +218,7 @@ void make_map()
 
 void text()
 {
-	file_scanf();                                                    
+	file_scanf();
 	color(3);
 	gotoxy(60, 4);
 	printf("\t\t\t\t( ^ω^)");
@@ -247,14 +247,14 @@ void text()
 
 void init_snake()
 {
-	int i,k,j;
+	int i, k, j;
 	srand((unsigned)time(NULL));                                      //重新播种，有利于产生随机数
 	tail = (snake*)malloc(sizeof(snake));
 	do
 	{
-		k= rand() % 46+2;                                             
-	} while ((k % 2) != 0);						  //蛇头x坐标在2~47，且为偶数
-	j= rand() % 22 + 1;                                               //蛇头y坐标在2~47
+		k = rand() % 46 + 2;
+	} while ((k % 2) != 0);											  //蛇头x坐标在2~47，且为偶数
+	j = rand() % 22 + 1;                                               //蛇头y坐标在2~47
 	tail->x = k;
 	tail->y = j;                                                      //实现贪吃蛇的随机出现
 	tail->next = NULL;
@@ -276,8 +276,8 @@ void init_snake()
 
 void food()
 {
-	srand((unsigned)time(NULL));                                      
-	struct snake * q;
+	srand((unsigned)time(NULL));
+	struct snake* q;
 	food_1 = (snake*)malloc(sizeof(snake));
 	do
 	{
@@ -287,7 +287,7 @@ void food()
 	q = head;
 	while (q != NULL)
 	{
-		if (q->x == food_1->x && q->y == food_1->y)               //判断食物是不是在蛇的身体上
+		if (q->x == food_1->x && q->y == food_1->y)                   //判断食物是不是在蛇的身体上
 		{
 			free(food_1);
 			food();
@@ -296,7 +296,7 @@ void food()
 	}
 	last_color = rand_color;                                          //通过这个来实现蛇吃个什么颜色的食物就变什么颜色
 	srand((unsigned)time(NULL));
-	color(rand_color=rand() % 10 + 1);                                //随机产生1~10的颜色
+	color(rand_color = rand() % 10 + 1);                                //随机产生1~10的颜色
 	gotoxy(food_1->x, food_1->y);                                     //打印食物
 	printf("●");
 }
@@ -314,18 +314,18 @@ void file_printf()
 {
 	FILE* fp;
 	fopen_s(&fp, "./save.txt", "w+");                                 //这个会覆盖之前的值
-	if (fp != NULL)													  
+	if (fp != NULL)
 		fprintf(fp, "%d", i);
 	fclose(fp);
 }
- 
-void gotodelete(int i, int y)                                         
+
+void gotodelete(int i, int y)
 {
 	gotoxy(i, y);
 	printf("  ");
 }
 
-void change_body(int a,int b)                             
+void change_body(int a, int b)
 {
 	snake* p;
 	p = head;
@@ -348,9 +348,9 @@ void change_body(int a,int b)
 void ClickControl()
 {
 	click = 'p';                                                        //为重玩做准备
-	while (judge()==0)                                                  //判断是否撞到东西
+	while (judge() == 0)                                                  //判断是否撞到东西
 	{
-		if (_kbhit())                                               //判断是否有键盘按下
+		if (_kbhit())                                                   //判断是否有键盘按下
 		{
 			click = _getch();
 		}
@@ -363,7 +363,7 @@ void MovingBody()
 {
 	int a = head->x, b = head->y;
 	snake* p = head;
-	while (p-> != NULL)                                                   //通过先清空后打印实现动画效果
+	while (p->next != NULL)                                                   //通过先清空后打印实现动画效果
 	{
 		gotodelete(p->x, p->y);
 		p = p->next;
@@ -389,16 +389,16 @@ void MovingBody()
 	case stop:
 		break;
 	case add_speed:                                                       //通过改变sleeptime，达到加速
-		if(sleeptime>=50)
+		if (sleeptime >= 50)
 		{
 			sleeptime -= 10;
-			i += 5; 
+			i += 5;
 		}
 		refresh();
 		break;
 	case down_speed:
-		if(sleeptime <=200)
-		{ 
+		if (sleeptime <= 200)
+		{
 			sleeptime += 10;
 			i -= 5;
 		}
@@ -426,18 +426,18 @@ void gotoprint(int x, int y)
 
 void eating()
 {
-	snake* now,*p;
+	snake* now, * p;
 	if (food_1->x == head->x && food_1->y == head->y)                        //判断蛇是否吃到食物
 	{
-		food();                                                     
+		food();
 		now = (snake*)malloc(sizeof(snake));
 		p = head;
 		while (p->next->next != NULL)
 			p = p->next;
 		now->next = p->next;
 		p->next = now;
-		i+=10;                                                              //当吃到东西时，成绩+10，速度增加
-		if (sleeptime >= 40)                                                
+		i += 10;                                                              //当吃到东西时，成绩+10，速度增加
+		if (sleeptime >= 40)
 			sleeptime -= 10;
 		refresh();                                                          //对成绩和速度进行刷新
 	}
@@ -459,7 +459,7 @@ int judge()
 	}
 	if (head->x == i_min2 || head->x == i_max2 || head->y == j_min2 || head->y == j_max2)
 	{
-		game_over(0);                                                           //0代表撞到墙了
+		game_over(0);                                                      //2代表撞到墙了
 		return 1;
 	}
 	else
